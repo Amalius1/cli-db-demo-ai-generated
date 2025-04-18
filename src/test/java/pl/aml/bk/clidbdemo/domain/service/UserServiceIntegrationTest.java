@@ -14,9 +14,9 @@ class UserServiceIntegrationTest implements WithAssertions {
     private UserService userService;
 
     @Test
-    void printUserOperations_shouldReturnFormattedOperationsForUser1() {
+    void printUserOperationsByEmail_shouldReturnFormattedOperationsForUser1() {
         // When
-        String result = userService.printUserOperations(1);
+        String result = userService.printUserOperationsByEmail("test.user1@example.com");
 
         // Then
         assertThat(result).isNotNull();
@@ -31,9 +31,9 @@ class UserServiceIntegrationTest implements WithAssertions {
     }
 
     @Test
-    void printUserOperations_shouldReturnFormattedOperationsForUser2() {
+    void printUserOperationsByEmail_shouldReturnFormattedOperationsForUser2() {
         // When
-        String result = userService.printUserOperations(2);
+        String result = userService.printUserOperationsByEmail("test.user2@example.com");
 
         // Then
         assertThat(result).isNotNull();
@@ -48,9 +48,9 @@ class UserServiceIntegrationTest implements WithAssertions {
     }
 
     @Test
-    void printUserOperations_shouldReturnEmptyStringForNonExistentUser() {
+    void printUserOperationsByEmail_shouldReturnEmptyStringForNonExistentUser() {
         // When
-        String result = userService.printUserOperations(999);
+        String result = userService.printUserOperationsByEmail("nonexistent@example.com");
 
         // Then
         assertThat(result).isEmpty();

@@ -32,28 +32,28 @@ public class PdfService {
     /**
      * Generates a PDF report with charts for a user's operations
      *
-     * @param userId     The ID of the user
+     * @param email      The email of the user
      * @param outputPath The path where the PDF will be saved
      * @return A message indicating success or failure
      */
-    public String generateUserOperationsPdf(Integer userId, String outputPath) {
-        return generateUserOperationsPdf(userId, outputPath, false);
+    public String generateUserOperationsPdf(String email, String outputPath) {
+        return generateUserOperationsPdf(email, outputPath, false);
     }
 
     /**
      * Generates a PDF report with charts for a user's operations
      *
-     * @param userId     The ID of the user
+     * @param email      The email of the user
      * @param outputPath The path where the PDF will be saved
      * @param uploadToS3 Whether to upload the PDF to S3
      * @return A message indicating success or failure
      */
-    public String generateUserOperationsPdf(Integer userId, String outputPath, boolean uploadToS3) {
+    public String generateUserOperationsPdf(String email, String outputPath, boolean uploadToS3) {
         try {
-            List<OperationEntity> operations = operationEntityRepository.findAllByUser_id(userId);
+            List<OperationEntity> operations = operationEntityRepository.findAllByUser_email(email);
 
             if (operations.isEmpty()) {
-                return "No operations found for user with ID: " + userId;
+                return "No operations found for user with email: " + email;
             }
 
             UserEntity user = operations.stream().findFirst().orElseThrow(() -> new PdfServiceException("Operations not found for user")).getUser();
@@ -186,7 +186,7 @@ public class PdfService {
                 // Upload to S3 if requested
                 if (uploadToS3) {
                     try {
-                        String fileName = "user_" + userId + "_operations.pdf";
+                        String fileName = "user_" + email.replace("@", "_at_") + "_operations.pdf";
                         String s3Url = s3Service.uploadFile(outputPath, fileName);
                         return "PDF report generated successfully at " + outputPath + " and uploaded to S3 at " + s3Url;
                     } catch (S3ServiceException e) {

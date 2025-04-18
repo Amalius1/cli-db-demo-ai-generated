@@ -18,13 +18,13 @@ class PrintUserOperationsCommand {
     private final PdfService pdfService;
 
     @ShellMethod(value = "print-operations")
-    public String printUserOperations(@ShellOption Integer userId) {
-        return userService.printUserOperations(userId);
+    public String printUserOperations(@ShellOption String email) {
+        return userService.printUserOperationsByEmail(email);
     }
 
     @ShellMethod(value = "save-operations")
-    public String saveUserOperations(@ShellOption Integer userId, @ShellOption String fileName) {
-        String operations = userService.printUserOperations(userId);
+    public String saveUserOperations(@ShellOption String email, @ShellOption String fileName) {
+        String operations = userService.printUserOperationsByEmail(email);
         try {
             Files.writeString(Path.of(fileName), operations);
             return "Operations saved successfully to " + fileName;
@@ -35,9 +35,9 @@ class PrintUserOperationsCommand {
 
     @ShellMethod(value = "generate-pdf-report")
     public String generatePdfReport(
-            @ShellOption Integer userId,
+            @ShellOption String email,
             @ShellOption String fileName,
             @ShellOption(defaultValue = "false") boolean uploadToS3) {
-        return pdfService.generateUserOperationsPdf(userId, fileName, uploadToS3);
+        return pdfService.generateUserOperationsPdf(email, fileName, uploadToS3);
     }
 }

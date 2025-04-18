@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface OperationEntityRepository extends JpaRepository<OperationEntity, Integer> {
     List<OperationEntity> findAllByUser_id(Integer userId);
+    List<OperationEntity> findAllByUser_email(String email);
 }

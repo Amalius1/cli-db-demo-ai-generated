@@ -58,7 +58,7 @@ class PdfServiceErrorHandlingTest implements WithAssertions {
     @Test
     void generateUserOperationsPdf_shouldHandleS3UploadError() {
         // When
-        String result = pdfService.generateUserOperationsPdf(1, TEST_PDF_FILE, true);
+        String result = pdfService.generateUserOperationsPdf("test.user1@example.com", TEST_PDF_FILE, true);
 
         // Then
         assertThat(result).isNotNull();

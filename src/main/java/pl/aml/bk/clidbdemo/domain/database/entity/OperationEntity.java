@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 public class OperationEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Enumerated(EnumType.STRING)

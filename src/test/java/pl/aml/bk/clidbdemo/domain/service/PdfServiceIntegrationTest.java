@@ -40,7 +40,7 @@ class PdfServiceIntegrationTest implements WithAssertions {
     @Test
     void generateUserOperationsPdf_shouldCreatePdfFileForUser1() {
         // When
-        String result = pdfService.generateUserOperationsPdf(1, TEST_PDF_FILE);
+        String result = pdfService.generateUserOperationsPdf("test.user1@example.com", TEST_PDF_FILE);
 
         // Then
         assertThat(result).isNotNull();
@@ -55,7 +55,7 @@ class PdfServiceIntegrationTest implements WithAssertions {
     @Test
     void generateUserOperationsPdf_shouldCreatePdfFileForUser2() {
         // When
-        String result = pdfService.generateUserOperationsPdf(2, TEST_PDF_FILE);
+        String result = pdfService.generateUserOperationsPdf("test.user2@example.com", TEST_PDF_FILE);
 
         // Then
         assertThat(result).isNotNull();
@@ -70,11 +70,11 @@ class PdfServiceIntegrationTest implements WithAssertions {
     @Test
     void generateUserOperationsPdf_shouldReturnErrorMessageForNonExistentUser() {
         // When
-        String result = pdfService.generateUserOperationsPdf(999, TEST_PDF_FILE);
+        String result = pdfService.generateUserOperationsPdf("nonexistent@example.com", TEST_PDF_FILE);
 
         // Then
         assertThat(result).isNotNull();
-        assertThat(result).contains("No operations found for user with ID: 999");
+        assertThat(result).contains("No operations found for user with email: nonexistent@example.com");
 
         // Verify that the file does not exist
         File pdfFile = new File(TEST_PDF_FILE);
@@ -84,7 +84,7 @@ class PdfServiceIntegrationTest implements WithAssertions {
     @Test
     void generateUserOperationsPdf_shouldUploadToS3ForUser1() {
         // When
-        String result = pdfService.generateUserOperationsPdf(1, TEST_PDF_FILE, true);
+        String result = pdfService.generateUserOperationsPdf("test.user1@example.com", TEST_PDF_FILE, true);
 
         // Then
         assertThat(result).isNotNull();

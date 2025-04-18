@@ -39,7 +39,7 @@ class PrintUserOperationsCommandIntegrationTest implements WithAssertions {
     @Test
     void printUserOperations_shouldReturnFormattedOperationsForUser1() {
         // When
-        String result = printUserOperationsCommand.printUserOperations(1);
+        String result = printUserOperationsCommand.printUserOperations("test.user1@example.com");
 
         // Then
         assertThat(result).isNotNull();
@@ -52,7 +52,7 @@ class PrintUserOperationsCommandIntegrationTest implements WithAssertions {
     @Test
     void saveUserOperations_shouldSaveOperationsToFile() {
         // When
-        String result = printUserOperationsCommand.saveUserOperations(1, TEST_TEXT_FILE);
+        String result = printUserOperationsCommand.saveUserOperations("test.user1@example.com", TEST_TEXT_FILE);
 
         // Then
         assertThat(result).isNotNull();
@@ -67,7 +67,7 @@ class PrintUserOperationsCommandIntegrationTest implements WithAssertions {
     @Test
     void generatePdfReport_shouldCreatePdfFile() {
         // When
-        String result = printUserOperationsCommand.generatePdfReport(1, TEST_PDF_FILE, false);
+        String result = printUserOperationsCommand.generatePdfReport("test.user1@example.com", TEST_PDF_FILE, false);
 
         // Then
         assertThat(result).isNotNull();

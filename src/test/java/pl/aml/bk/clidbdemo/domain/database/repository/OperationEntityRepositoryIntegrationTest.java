@@ -60,4 +60,48 @@ class OperationEntityRepositoryIntegrationTest implements WithAssertions {
         assertThat(operations).isNotNull();
         assertThat(operations).isEmpty();
     }
+
+    @Test
+    void findAllByUser_email_shouldReturnOperationsForUser1() {
+        // When
+        List<OperationEntity> operations = operationEntityRepository.findAllByUser_email("test.user1@example.com");
+
+        // Then
+        assertThat(operations).isNotNull();
+        assertThat(operations).hasSize(4);
+        assertThat(operations).extracting("operationName")
+                .containsExactlyInAnyOrder(
+                        OperationType.DEPOSIT,
+                        OperationType.WITHDRAWAL,
+                        OperationType.TRANSFER,
+                        OperationType.PURCHASE
+                );
+    }
+
+    @Test
+    void findAllByUser_email_shouldReturnOperationsForUser2() {
+        // When
+        List<OperationEntity> operations = operationEntityRepository.findAllByUser_email("test.user2@example.com");
+
+        // Then
+        assertThat(operations).isNotNull();
+        assertThat(operations).hasSize(4);
+        assertThat(operations).extracting("operationName")
+                .containsExactlyInAnyOrder(
+                        OperationType.DEPOSIT,
+                        OperationType.TOP_UP,
+                        OperationType.PAYMENT,
+                        OperationType.REFUND
+                );
+    }
+
+    @Test
+    void findAllByUser_email_shouldReturnEmptyListForNonExistentUser() {
+        // When
+        List<OperationEntity> operations = operationEntityRepository.findAllByUser_email("nonexistent@example.com");
+
+        // Then
+        assertThat(operations).isNotNull();
+        assertThat(operations).isEmpty();
+    }
 }
