@@ -62,41 +62,4 @@ class UserServiceIntegrationTest implements WithAssertions {
         assertThat(result).isEmpty();
     }
 
-    /**
-     * Test for the deprecated printUserOperations method
-     */
-    @Test
-    @SuppressWarnings("deprecation")
-    void printUserOperations_shouldReturnFormattedOperationsForUser1() {
-        // Given
-        var user = userEntityRepository.findByEmail("test.user1@example.com").orElseThrow();
-        Integer userId = user.getId();
-
-        // When
-        String result = userService.printUserOperations(userId);
-
-        // Then
-        assertThat(result).isNotNull();
-        assertThat(result).contains("Operation: Deposit");
-        assertThat(result).contains("Operation: Withdrawal");
-        assertThat(result).contains("Operation: Transfer");
-        assertThat(result).contains("Operation: Purchase");
-        assertThat(result).contains("Amount: 100.50");
-        assertThat(result).contains("Amount: 50.00");
-        assertThat(result).contains("Amount: 200.75");
-        assertThat(result).contains("Amount: 75.00");
-    }
-
-    /**
-     * Test for the deprecated printUserOperations method with non-existent user
-     */
-    @Test
-    @SuppressWarnings("deprecation")
-    void printUserOperations_shouldReturnEmptyStringForNonExistentUser() {
-        // When
-        String result = userService.printUserOperations(999);
-
-        // Then
-        assertThat(result).isEmpty();
-    }
 }

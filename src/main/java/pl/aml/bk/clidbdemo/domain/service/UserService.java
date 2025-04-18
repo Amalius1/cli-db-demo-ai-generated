@@ -20,19 +20,6 @@ public class UserService {
     private final OperationEntityRepository operationEntityRepository;
     private final UserEntityRepository userEntityRepository;
 
-    /**
-     * @deprecated Use {@link #printUserOperationsByEmail(String)} instead
-     */
-    @Deprecated
-    public String printUserOperations(Integer id) {
-        List<OperationEntity> allByUserId = operationEntityRepository.findAllByUser_id(id);
-
-        return allByUserId.stream()
-                .map(x -> "Operation: " + x.getOperationName().getValue() + "\n" +
-                        "Amount: " + x.getAmount() + "\n" +
-                        "-".repeat(10))
-                .collect(Collectors.joining("\n"));
-    }
 
     public String printUserOperationsByEmail(String email) {
         List<OperationEntity> allByUserEmail = operationEntityRepository.findAllByUser_email(email);
