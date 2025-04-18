@@ -1,0 +1,36 @@
+spring:
+  shell:
+    interactive:
+      enabled: true
+  main:
+    banner-mode: off
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    defer-datasource-initialization: true
+
+# S3 Configuration for MinIO
+s3:
+  endpoint: http://localhost:9000
+  region: us-east-1
+  access-key: minioadmin
+  secret-key: minioadmin
+  bucket-name: pdfs
+
+---
+# Docker profile for when running in Docker environment
+spring:
+  config:
+    activate:
+      on-profile: docker
+s3:
+  endpoint: http://minio:9000
+
+---
