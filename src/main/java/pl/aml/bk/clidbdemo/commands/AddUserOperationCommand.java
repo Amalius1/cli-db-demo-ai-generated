@@ -1,23 +1,42 @@
 package pl.aml.bk.clidbdemo.commands;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import pl.aml.bk.clidbdemo.domain.database.entity.OperationType;
 import pl.aml.bk.clidbdemo.domain.database.entity.UserEntity;
 import pl.aml.bk.clidbdemo.domain.service.UserService;
 
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Scanner;
 
 @ShellComponent
-@RequiredArgsConstructor
 public class AddUserOperationCommand {
 
     private final UserService userService;
-    private final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
+
+    @Autowired
+    public AddUserOperationCommand(UserService userService) {
+        this(userService, new Scanner(System.in));
+    }
+
+    // Constructor for testing
+    public AddUserOperationCommand(UserService userService, Scanner scanner) {
+        this.userService = userService;
+        this.scanner = scanner;
+    }
+
+    // Bean for creating a Scanner with System.in
+    @Bean
+    public static Scanner systemInScanner() {
+        return new Scanner(System.in);
+    }
 
     @ShellMethod(value = "add-user-operation")
     public String addUserOperation() {

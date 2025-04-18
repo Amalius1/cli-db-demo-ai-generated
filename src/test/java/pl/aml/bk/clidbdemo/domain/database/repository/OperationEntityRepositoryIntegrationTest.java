@@ -1,6 +1,7 @@
 package pl.aml.bk.clidbdemo.domain.database.repository;
 
 import org.assertj.core.api.WithAssertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +19,7 @@ class OperationEntityRepositoryIntegrationTest implements WithAssertions {
     private OperationEntityRepository operationEntityRepository;
 
     @Test
+    @DisplayName("Find all operations by user ID should return operations for user 1")
     void findAllByUser_id_shouldReturnOperationsForUser1() {
         // When
         List<OperationEntity> operations = operationEntityRepository.findAllByUser_id(1);
@@ -35,6 +37,7 @@ class OperationEntityRepositoryIntegrationTest implements WithAssertions {
     }
 
     @Test
+    @DisplayName("Find all operations by user ID should return operations for user 2")
     void findAllByUser_id_shouldReturnOperationsForUser2() {
         // When
         List<OperationEntity> operations = operationEntityRepository.findAllByUser_id(2);
@@ -52,6 +55,7 @@ class OperationEntityRepositoryIntegrationTest implements WithAssertions {
     }
 
     @Test
+    @DisplayName("Find all operations by user ID should return empty list for non-existent user")
     void findAllByUser_id_shouldReturnEmptyListForNonExistentUser() {
         // When
         List<OperationEntity> operations = operationEntityRepository.findAllByUser_id(999);
@@ -62,6 +66,7 @@ class OperationEntityRepositoryIntegrationTest implements WithAssertions {
     }
 
     @Test
+    @DisplayName("Find all operations by user email should return operations for user 1")
     void findAllByUser_email_shouldReturnOperationsForUser1() {
         // When
         List<OperationEntity> operations = operationEntityRepository.findAllByUser_email("test.user1@example.com");
@@ -79,6 +84,7 @@ class OperationEntityRepositoryIntegrationTest implements WithAssertions {
     }
 
     @Test
+    @DisplayName("Find all operations by user email should return operations for user 2")
     void findAllByUser_email_shouldReturnOperationsForUser2() {
         // When
         List<OperationEntity> operations = operationEntityRepository.findAllByUser_email("test.user2@example.com");
@@ -96,6 +102,7 @@ class OperationEntityRepositoryIntegrationTest implements WithAssertions {
     }
 
     @Test
+    @DisplayName("Find all operations by user email should return empty list for non-existent user")
     void findAllByUser_email_shouldReturnEmptyListForNonExistentUser() {
         // When
         List<OperationEntity> operations = operationEntityRepository.findAllByUser_email("nonexistent@example.com");

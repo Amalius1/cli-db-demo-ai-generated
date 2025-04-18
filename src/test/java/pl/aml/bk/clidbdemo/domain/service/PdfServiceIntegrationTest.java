@@ -2,6 +2,7 @@ package pl.aml.bk.clidbdemo.domain.service;
 
 import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,6 +39,7 @@ class PdfServiceIntegrationTest implements WithAssertions {
     }
 
     @Test
+    @DisplayName("Generate user operations PDF should create PDF file for user 1")
     void generateUserOperationsPdf_shouldCreatePdfFileForUser1() {
         // When
         String result = pdfService.generateUserOperationsPdf("test.user1@example.com", TEST_PDF_FILE);
@@ -53,6 +55,7 @@ class PdfServiceIntegrationTest implements WithAssertions {
     }
 
     @Test
+    @DisplayName("Generate user operations PDF should create PDF file for user 2")
     void generateUserOperationsPdf_shouldCreatePdfFileForUser2() {
         // When
         String result = pdfService.generateUserOperationsPdf("test.user2@example.com", TEST_PDF_FILE);
@@ -68,6 +71,7 @@ class PdfServiceIntegrationTest implements WithAssertions {
     }
 
     @Test
+    @DisplayName("Generate user operations PDF should return error message for non-existent user")
     void generateUserOperationsPdf_shouldReturnErrorMessageForNonExistentUser() {
         // When
         String result = pdfService.generateUserOperationsPdf("nonexistent@example.com", TEST_PDF_FILE);
@@ -82,6 +86,7 @@ class PdfServiceIntegrationTest implements WithAssertions {
     }
 
     @Test
+    @DisplayName("Generate user operations PDF should upload to S3 for user 1")
     void generateUserOperationsPdf_shouldUploadToS3ForUser1() {
         // When
         String result = pdfService.generateUserOperationsPdf("test.user1@example.com", TEST_PDF_FILE, true);

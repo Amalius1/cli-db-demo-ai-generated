@@ -2,6 +2,7 @@ package pl.aml.bk.clidbdemo.domain.service;
 
 import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -56,6 +57,7 @@ class PdfServiceErrorHandlingTest implements WithAssertions {
     }
 
     @Test
+    @DisplayName("Generate user operations PDF should handle S3 upload error gracefully")
     void generateUserOperationsPdf_shouldHandleS3UploadError() {
         // When
         String result = pdfService.generateUserOperationsPdf("test.user1@example.com", TEST_PDF_FILE, true);

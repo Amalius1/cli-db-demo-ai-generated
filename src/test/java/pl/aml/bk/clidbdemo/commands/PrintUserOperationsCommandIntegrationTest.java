@@ -2,6 +2,7 @@ package pl.aml.bk.clidbdemo.commands;
 
 import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,6 +38,7 @@ class PrintUserOperationsCommandIntegrationTest implements WithAssertions {
     }
 
     @Test
+    @DisplayName("Print user operations should return formatted operations for user 1")
     void printUserOperations_shouldReturnFormattedOperationsForUser1() {
         // When
         String result = printUserOperationsCommand.printUserOperations("test.user1@example.com");
@@ -50,6 +52,7 @@ class PrintUserOperationsCommandIntegrationTest implements WithAssertions {
     }
 
     @Test
+    @DisplayName("Save user operations should save operations to a text file")
     void saveUserOperations_shouldSaveOperationsToFile() {
         // When
         String result = printUserOperationsCommand.saveUserOperations("test.user1@example.com", TEST_TEXT_FILE);
@@ -65,6 +68,7 @@ class PrintUserOperationsCommandIntegrationTest implements WithAssertions {
     }
 
     @Test
+    @DisplayName("Generate PDF report should create a PDF file with user operations")
     void generatePdfReport_shouldCreatePdfFile() {
         // When
         String result = printUserOperationsCommand.generatePdfReport("test.user1@example.com", TEST_PDF_FILE, false);

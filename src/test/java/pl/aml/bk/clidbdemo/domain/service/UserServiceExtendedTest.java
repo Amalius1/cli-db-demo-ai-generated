@@ -1,6 +1,7 @@
 package pl.aml.bk.clidbdemo.domain.service;
 
 import org.assertj.core.api.WithAssertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,6 +30,7 @@ class UserServiceExtendedTest implements WithAssertions {
     private OperationEntityRepository operationEntityRepository;
 
     @Test
+    @DisplayName("Find user by email should return user when the user exists")
     void findUserByEmail_shouldReturnUserWhenExists() {
         // Given
         String existingEmail = "test.user1@example.com";
@@ -44,6 +46,7 @@ class UserServiceExtendedTest implements WithAssertions {
     }
 
     @Test
+    @DisplayName("Find user by email should return empty when user does not exist")
     void findUserByEmail_shouldReturnEmptyWhenUserDoesNotExist() {
         // Given
         String nonExistingEmail = "nonexistent@example.com";
@@ -56,6 +59,7 @@ class UserServiceExtendedTest implements WithAssertions {
     }
 
     @Test
+    @DisplayName("Create user should create and return a new user")
     void createUser_shouldCreateAndReturnNewUser() {
         // Given
         String email = "new.user@example.com";
@@ -79,6 +83,7 @@ class UserServiceExtendedTest implements WithAssertions {
     }
 
     @Test
+    @DisplayName("Add operation should add a new operation to the user")
     void addOperation_shouldAddOperationToUser() {
         // Given
         UserEntity user = userEntityRepository.findByEmail("test.user1@example.com").orElseThrow();

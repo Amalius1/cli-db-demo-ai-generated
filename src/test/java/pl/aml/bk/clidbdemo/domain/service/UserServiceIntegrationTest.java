@@ -1,10 +1,12 @@
 package pl.aml.bk.clidbdemo.domain.service;
 
 import org.assertj.core.api.WithAssertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import pl.aml.bk.clidbdemo.domain.database.repository.UserEntityRepository;
 
 @SpringBootTest(properties = {"spring.shell.interactive.enabled=false"})
 @ActiveProfiles("test")
@@ -13,7 +15,11 @@ class UserServiceIntegrationTest implements WithAssertions {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserEntityRepository userEntityRepository;
+
     @Test
+    @DisplayName("Print user operations by email should return formatted operations for user 1")
     void printUserOperationsByEmail_shouldReturnFormattedOperationsForUser1() {
         // When
         String result = userService.printUserOperationsByEmail("test.user1@example.com");
@@ -51,6 +57,44 @@ class UserServiceIntegrationTest implements WithAssertions {
     void printUserOperationsByEmail_shouldReturnEmptyStringForNonExistentUser() {
         // When
         String result = userService.printUserOperationsByEmail("nonexistent@example.com");
+
+        // Then
+        assertThat(result).isEmpty();
+    }
+
+    /**
+     * Test for the deprecated printUserOperations method
+     */
+    @Test
+    @SuppressWarnings("deprecation")
+    void printUserOperations_shouldReturnFormattedOperationsForUser1() {
+        // Given
+        var user = userEntityRepository.findByEmail("test.user1@example.com").orElseThrow();
+        Integer userId = user.getId();
+
+        // When
+        String result = userService.printUserOperations(userId);
+
+        // Then
+        assertThat(result).isNotNull();
+        assertThat(result).contains("Operation: Deposit");
+        assertThat(result).contains("Operation: Withdrawal");
+        assertThat(result).contains("Operation: Transfer");
+        assertThat(result).contains("Operation: Purchase");
+        assertThat(result).contains("Amount: 100.50");
+        assertThat(result).contains("Amount: 50.00");
+        assertThat(result).contains("Amount: 200.75");
+        assertThat(result).contains("Amount: 75.00");
+    }
+
+    /**
+     * Test for the deprecated printUserOperations method with non-existent user
+     */
+    @Test
+    @SuppressWarnings("deprecation")
+    void printUserOperations_shouldReturnEmptyStringForNonExistentUser() {
+        // When
+        String result = userService.printUserOperations(999);
 
         // Then
         assertThat(result).isEmpty();
