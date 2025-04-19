@@ -1,3 +1,5 @@
+[![Java CI with Maven](https://github.com/Amalius1/cli-db-demo-ai-generated/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/Amalius1/cli-db-demo-ai-generated/actions/workflows/maven.yml)
+
 # CLI Database Demo
 
 This project is a Spring Shell CLI application that provides a command-line interface for managing user operations in a database. The application allows users to add financial operations, print user operations, save operations to a file, and generate PDF reports that can be optionally uploaded to S3.
